@@ -18,6 +18,7 @@ builder.Services.AddScoped<IRole, RoleService>();
 builder.Services.AddScoped<IAchivement, AchivementService>();
 builder.Services.AddScoped<IReportType, ReportTypeService>();
 builder.Services.AddScoped<IProcessType, ProcessTypeService>();
+builder.Services.AddScoped<IVote, VoteService>();
 
 
 

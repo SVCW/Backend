@@ -1,6 +1,8 @@
-﻿using SVCW.DTOs.Roles;
+﻿using Microsoft.EntityFrameworkCore;
+using SVCW.DTOs.Roles;
 using SVCW.Interfaces;
 using SVCW.Models;
+using System.Xml.Linq;
 
 namespace SVCW.Services
 {
@@ -36,29 +38,86 @@ namespace SVCW.Services
             }
         }
 
-        public Task<Role> delete(string id)
+        public async Task<Role> delete(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var check = await this._context.Role.Where(x => x.RoleId.Equals(id)).FirstOrDefaultAsync();
+                check.Status = false;
+
+                await this._context.SaveChangesAsync();
+                return check;
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-        public Task<Role> findById(string id)
+        public async Task<Role> findById(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var check = await this._context.Role.Where(x => x.RoleId.Equals(id)).FirstOrDefaultAsync();
+                if(check != null)
+                {
+                    return check;
+                }
+                return null;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-        public Task<List<Role>> findByName(string name)
+        public async Task<List<Role>> findByName(string name)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var check = await this._context.Role.Where(x => x.RoleName.Contains(name)).ToListAsync();
+                if (check != null)
+                {
+                    return check;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-        public Task<List<Role>> getAll()
+        public async Task<List<Role>> getAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var check = await this._context.Role.ToListAsync();
+                if (check != null)
+                {
+                    return check;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-        public Task<Role> update(RoleUpdateDTO role)
+        public async Task<Role> update(RoleUpdateDTO role)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var check = await this._context.Role.Where(x => x.RoleId.Equals(role.RoleId)).FirstOrDefaultAsync();
+                check.Description = role.Description;
+                check.RoleName = role.RoleName;
+                await this._context.SaveChangesAsync();
+                return check;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

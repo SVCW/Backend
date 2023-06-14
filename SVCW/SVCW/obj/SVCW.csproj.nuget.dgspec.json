@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\CapstoneProjectSVCW\\Backend\\SVCW\\SVCW\\SVCW.csproj": {}
+    "F:\\CP_Summer23_SVCW\\SVCW_BE\\Backend_SVCW\\SVCW\\SVCW\\SVCW.csproj": {}
   },
   "projects": {
-    "D:\\CapstoneProjectSVCW\\Backend\\SVCW\\SVCW\\SVCW.csproj": {
+    "F:\\CP_Summer23_SVCW\\SVCW_BE\\Backend_SVCW\\SVCW\\SVCW\\SVCW.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\CapstoneProjectSVCW\\Backend\\SVCW\\SVCW\\SVCW.csproj",
+        "projectUniqueName": "F:\\CP_Summer23_SVCW\\SVCW_BE\\Backend_SVCW\\SVCW\\SVCW\\SVCW.csproj",
         "projectName": "SVCW",
-        "projectPath": "D:\\CapstoneProjectSVCW\\Backend\\SVCW\\SVCW\\SVCW.csproj",
-        "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-        "outputPath": "D:\\CapstoneProjectSVCW\\Backend\\SVCW\\SVCW\\obj\\",
+        "projectPath": "F:\\CP_Summer23_SVCW\\SVCW_BE\\Backend_SVCW\\SVCW\\SVCW\\SVCW.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "F:\\CP_Summer23_SVCW\\SVCW_BE\\Backend_SVCW\\SVCW\\SVCW\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -76,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -34,18 +34,33 @@ builder.Services.AddEndpointsApiExplorer();
 //{
 //    option.SwaggerDoc("SVCW", new OpenApiInfo() { Title = "SVCW", Version = "v1" });
 //    //setup comment in swagger UI
-//    //var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-//    //var xmlCommentFileFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
+//    var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+//    var xmlCommentFileFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
 
 //});
+builder.Services.AddSwaggerGen(option =>
+{
+    option.SwaggerDoc("SVCW", new OpenApiInfo() { Title = "SVCW", Version = "v1" });
+    //setup comment in swagger UI
+    var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlCommentFileFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
+
+    option.IncludeXmlComments(xmlCommentFileFullPath);
+});
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/SVCW/swagger.json", "SVCWApi v1"));
 }
 
 app.UseHttpsRedirection();

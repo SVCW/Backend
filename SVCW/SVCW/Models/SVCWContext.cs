@@ -28,6 +28,7 @@ namespace SVCW.Models
         public virtual DbSet<Donation> Donation { get; set; }
         public virtual DbSet<Fanpage> Fanpage { get; set; }
         public virtual DbSet<FollowFanpage> FollowFanpage { get; set; }
+        public virtual DbSet<FollowJoinAvtivity> FollowJoinAvtivity { get; set; }
         public virtual DbSet<Like> Like { get; set; }
         public virtual DbSet<Media> Media { get; set; }
         public virtual DbSet<Notification> Notification { get; set; }
@@ -44,7 +45,7 @@ namespace SVCW.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=LAPTOP-8LC85HGU\\SQLEXPRESS;Initial Catalog=SVCW;User ID=sa;Password=12");
+                optionsBuilder.UseSqlServer("Data Source=LAPTOP-8LC85HGU\\SQLEXPRESS;Initial Catalog=SVCW;Persist Security Info=True;User ID=sa;Password=12");
             }
         }
 
@@ -169,6 +170,25 @@ namespace SVCW.Models
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_FollowFanpage_User");
+            });
+
+            modelBuilder.Entity<FollowJoinAvtivity>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.ActivityId });
+
+                entity.Property(e => e.IsFollow).IsFixedLength();
+
+                entity.HasOne(d => d.Activity)
+                    .WithMany(p => p.FollowJoinAvtivity)
+                    .HasForeignKey(d => d.ActivityId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FollowJoinAvtivity_Activity");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.FollowJoinAvtivity)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FollowJoinAvtivity_User");
             });
 
             modelBuilder.Entity<Like>(entity =>

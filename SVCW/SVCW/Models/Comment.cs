@@ -29,7 +29,6 @@ namespace SVCW.Models
         public string ActivityId { get; set; }
         [Required]
         [Column("commentContent")]
-        [StringLength(10)]
         public string CommentContent { get; set; }
         [Column("datetime", TypeName = "datetime")]
         public DateTime Datetime { get; set; }

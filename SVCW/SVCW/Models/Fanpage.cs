@@ -13,6 +13,7 @@ namespace SVCW.Models
         public Fanpage()
         {
             Activity = new HashSet<Activity>();
+            FollowFanpage = new HashSet<FollowFanpage>();
         }
 
         [Key]
@@ -52,5 +53,7 @@ namespace SVCW.Models
         public virtual User FanpageNavigation { get; set; }
         [InverseProperty("Fanpage")]
         public virtual ICollection<Activity> Activity { get; set; }
+        [InverseProperty("Fanpage")]
+        public virtual ICollection<FollowFanpage> FollowFanpage { get; set; }
     }
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SVCW</name>
+    </assembly>
+    <members>
+        <member name="T:SVCW.Controllers.AchivementController">
+            <summary>
+            hjhj
+            </summary>
+        </member>
+        <member name="M:SVCW.Controllers.AchivementController.GetAllAchivement">
+            <summary>
+            hjhj
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

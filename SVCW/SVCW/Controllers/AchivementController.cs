@@ -6,6 +6,9 @@ using SVCW.Models;
 
 namespace SVCW.Controllers
 {
+    /// <summary>
+    /// hjhj
+    /// </summary>
     [Route("/api/[controller]")]
     [ApiController]
     public class AchivementController : ControllerBase
@@ -15,6 +18,10 @@ namespace SVCW.Controllers
         {
             this._achivementService = achivementService;
         }
+        /// <summary>
+        /// hjhj
+        /// </summary>
+        /// <returns></returns>
         [Route("get-all-achivement")]
         [HttpGet]
         public async Task<IActionResult> GetAllAchivement()

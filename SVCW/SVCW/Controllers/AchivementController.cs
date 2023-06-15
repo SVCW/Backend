@@ -19,7 +19,7 @@ namespace SVCW.Controllers
             this._achivementService = achivementService;
         }
         /// <summary>
-        /// hjhj
+        /// hjhj ae uoc ne
         /// </summary>
         /// <returns></returns>
         [Route("get-all-achivement")]

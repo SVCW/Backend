@@ -27,6 +27,7 @@ namespace SVCW.Models
         public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Donation> Donation { get; set; }
         public virtual DbSet<Fanpage> Fanpage { get; set; }
+        public virtual DbSet<FollowFanpage> FollowFanpage { get; set; }
         public virtual DbSet<Like> Like { get; set; }
         public virtual DbSet<Media> Media { get; set; }
         public virtual DbSet<Notification> Notification { get; set; }
@@ -153,6 +154,23 @@ namespace SVCW.Models
                     .HasConstraintName("FK_Fanpage_User");
             });
 
+            modelBuilder.Entity<FollowFanpage>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.FanpageId });
+
+                entity.HasOne(d => d.Fanpage)
+                    .WithMany(p => p.FollowFanpage)
+                    .HasForeignKey(d => d.FanpageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FollowFanpage_Fanpage");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.FollowFanpage)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FollowFanpage_User");
+            });
+
             modelBuilder.Entity<Like>(entity =>
             {
                 entity.HasKey(e => new { e.UserId, e.ActivityId });
@@ -225,6 +243,10 @@ namespace SVCW.Models
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.HasIndex(e => e.Username, "User")
+                    .IsUnique()
+                    .HasFilter("([username] IS NOT NULL)");
+
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.User)
                     .HasForeignKey(d => d.RoleId)

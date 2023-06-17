@@ -93,7 +93,7 @@ namespace SVCW.Services
                 _achivement.AchivementId = "AId" + Guid.NewGuid().ToString().Substring(0, 7);
                 _achivement.AchivementLogo = achivement.AchivementLogo;
                 _achivement.Description = achivement.Description;
-                _achivement.CreateAt = achivement.CreateAt;
+                _achivement.CreateAt = DateTime.Now;
                 _achivement.Status = achivement.Status;
                 await this.context.Achivement.AddAsync(_achivement);
                 this.context.SaveChanges();
@@ -115,7 +115,7 @@ namespace SVCW.Services
                     achivement.AchivementId = upAchivement.AchivementId;
                     achivement.AchivementLogo = upAchivement.AchivementLogo;
                     achivement.Description= upAchivement.Description;
-                    achivement.CreateAt= upAchivement.CreateAt;
+                    //achivement.CreateAt= upAchivement.CreateAt;
                     achivement.Status= upAchivement.Status;
                     this.context.SaveChanges();
                     return true;

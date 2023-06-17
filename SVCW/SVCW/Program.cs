@@ -22,6 +22,10 @@ builder.Services.AddScoped<IReportType, ReportTypeService>();
 builder.Services.AddScoped<IProcessType, ProcessTypeService>();
 builder.Services.AddScoped<IVote, VoteService>();
 builder.Services.AddScoped<IDonation,DonationService>();
+builder.Services.AddScoped<IActivity, ActivityService>();
+builder.Services.AddScoped<IActivityResult, ActivityResultService>();
+builder.Services.AddScoped<IBankAccount, BankAccountService>();
+builder.Services.AddScoped<IFanpage, FanpageService>();
 
 
 

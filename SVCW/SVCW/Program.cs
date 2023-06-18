@@ -20,6 +20,7 @@ builder.Services.AddScoped<IReportType, ReportTypeService>();
 builder.Services.AddScoped<IProcessType, ProcessTypeService>();
 builder.Services.AddScoped<IVote, VoteService>();
 builder.Services.AddScoped<IDonation,DonationService>();
+builder.Services.AddScoped<IComment,CommentService>();
 
 
 

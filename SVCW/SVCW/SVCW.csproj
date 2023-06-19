@@ -18,12 +18,6 @@
     <Folder Include="DTOs\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Services\" />
-    <Folder Include="DTOs\Comments\" />
-    <Folder Include="DTOs\Likes\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="DTOs\Comments\" />
-    <None Remove="DTOs\Likes\" />
-  </ItemGroup>
 </Project>

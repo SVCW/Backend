@@ -26,6 +26,8 @@ builder.Services.AddScoped<IActivity, ActivityService>();
 builder.Services.AddScoped<IActivityResult, ActivityResultService>();
 builder.Services.AddScoped<IBankAccount, BankAccountService>();
 builder.Services.AddScoped<IFanpage, FanpageService>();
+builder.Services.AddScoped<IComment, CommentService>();
+
 
 
 

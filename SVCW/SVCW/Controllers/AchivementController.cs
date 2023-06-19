@@ -19,7 +19,7 @@ namespace SVCW.Controllers
             this._achivementService = achivementService;
         }
         /// <summary>
-        /// hjhj ae uoc ne
+        /// admin, moderator
         /// </summary>
         /// <returns></returns>
         [Route("get-all-achivement")]
@@ -40,6 +40,11 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <param name="achivementId"></param>
+        /// <returns></returns>
         [Route("get-achivement-by-id")]
         [HttpGet]
         public async Task<IActionResult> GetAchivementById(string? achivementId)
@@ -57,6 +62,12 @@ namespace SVCW.Controllers
                 return BadRequest(responseAPI);
             }
         }
+
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <param name="achivementId"></param>
+        /// <returns></returns>
         [Route("insert-achivement")]
         [HttpPost]
         public async Task<IActionResult> InsertFood(AchivementDTO achivementId)
@@ -74,6 +85,11 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <param name="upAchivement"></param>
+        /// <returns></returns>
         [Route("update-achivement-by-id")]
         [HttpPut]
         public async Task<IActionResult> UpdateAchivement(AchivementDTO upAchivement)
@@ -90,6 +106,12 @@ namespace SVCW.Controllers
                 return BadRequest(responseAPI);
             }
         }
+
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <param name="achivementId"></param>
+        /// <returns></returns>
         [Route("delete-achivement-by-id")]
         [HttpDelete]
         public async Task<IActionResult> DeleteFood([FromQuery] List<string> achivementId)

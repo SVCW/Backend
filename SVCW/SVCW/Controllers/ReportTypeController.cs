@@ -16,6 +16,11 @@ namespace SVCW.Controllers
         {
             this._reportTypeService = reportTypeService;
         }
+
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <returns></returns>
         [Route("get-all-Report-Type")]
         [HttpGet]
         public async Task<IActionResult> GetAllAchivement()
@@ -34,6 +39,11 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <param name="reportTypeId"></param>
+        /// <returns></returns>
         [Route("get-report-type-by-id")]
         [HttpGet]
         public async Task<IActionResult> GetAchivementById(string? reportTypeId)
@@ -51,6 +61,12 @@ namespace SVCW.Controllers
                 return BadRequest(responseAPI);
             }
         }
+
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <param name="reportTypeName"></param>
+        /// <returns></returns>
         [Route("get-report-type-by-name")]
         [HttpGet]
         public async Task<IActionResult> SearchByNameReportType(string? reportTypeName)
@@ -68,6 +84,12 @@ namespace SVCW.Controllers
                 return BadRequest(responseAPI);
             }
         }
+
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <param name="reportType"></param>
+        /// <returns></returns>
         [Route("insert-report-type-by-id")]
         [HttpPost]
         public async Task<IActionResult> InsertReportType(ReportTypeDTO reportType)
@@ -85,6 +107,11 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <param name="upReportType"></param>
+        /// <returns></returns>
         [Route("update-report-Type-by-id")]
         [HttpPut]
         public async Task<IActionResult> UpdateReportType(ReportTypeDTO upReportType)
@@ -101,6 +128,12 @@ namespace SVCW.Controllers
                 return BadRequest(responseAPI);
             }
         }
+
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <param name="achivementId"></param>
+        /// <returns></returns>
         [Route("delete-report-type-by-id")]
         [HttpDelete]
         public async Task<IActionResult> DeleteReportType([FromQuery] List<string> achivementId)

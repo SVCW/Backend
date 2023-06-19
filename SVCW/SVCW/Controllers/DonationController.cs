@@ -16,6 +16,10 @@ namespace SVCW.Controllers
             this.service = service;
         }
 
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <returns></returns>
         [Route("get-Donation")]
         [HttpGet]
         public async Task<IActionResult> getall()
@@ -33,6 +37,11 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("get-Donation-activity")]
         [HttpGet]
         public async Task<IActionResult> getDonationActivity(string id)

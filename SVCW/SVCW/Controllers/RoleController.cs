@@ -17,6 +17,11 @@ namespace SVCW.Controllers
             this.service = service;
         }
 
+        /// <summary>
+        /// admin
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [Route("Insert-Role")]
         [HttpPost]
         public async Task<IActionResult> Insert(RoleCreateDTO dto)
@@ -34,6 +39,11 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [Route("update-role")]
         [HttpPut]
         public async Task<IActionResult> update(RoleUpdateDTO dto)
@@ -51,6 +61,11 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [Route("delete-role")]
         [HttpDelete]
         public async Task<IActionResult> delete(string dto)
@@ -68,6 +83,10 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin
+        /// </summary>
+        /// <returns></returns>
         [Route("get-role")]
         [HttpGet]
         public async Task<IActionResult> getall()
@@ -85,6 +104,11 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [Route("get-rolename")]
         [HttpGet]
         public async Task<IActionResult> getName(string name)
@@ -102,6 +126,11 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("get-roleid")]
         [HttpGet]
         public async Task<IActionResult> getId(string id)

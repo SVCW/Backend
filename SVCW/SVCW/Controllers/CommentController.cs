@@ -50,6 +50,10 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <returns></returns>
         [Route("get-comment")]
         [HttpGet]
         public async Task<IActionResult> getComment()
@@ -101,6 +105,11 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("delete-comment")]
         [HttpDelete]
         public async Task<IActionResult> deleteComment(string id)

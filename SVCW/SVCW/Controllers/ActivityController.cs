@@ -52,6 +52,11 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("delete-activity")]
         [HttpDelete]
         public async Task<IActionResult> delete(string id)
@@ -69,6 +74,10 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <returns></returns>
         [Route("get-activity")]
         [HttpGet]
         public async Task<IActionResult> getall()
@@ -86,6 +95,11 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("get-activity-id")]
         [HttpGet]
         public async Task<IActionResult> getid(string id)

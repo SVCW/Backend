@@ -24,6 +24,8 @@ namespace SVCW.Models
         public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Donation> Donation { get; set; }
         public virtual DbSet<Fanpage> Fanpage { get; set; }
+        public virtual DbSet<FollowFanpage> FollowFanpage { get; set; }
+        public virtual DbSet<FollowJoinAvtivity> FollowJoinAvtivity { get; set; }
         public virtual DbSet<Like> Like { get; set; }
         public virtual DbSet<Media> Media { get; set; }
         public virtual DbSet<Notification> Notification { get; set; }
@@ -40,7 +42,11 @@ namespace SVCW.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+<<<<<<< HEAD
                 optionsBuilder.UseSqlServer("Data Source=,1433;Initial Catalog=SVCW;User ID=sa;Password=Yftw-rwup-gheu@11;TrustServerCertificate=true;");
+=======
+                optionsBuilder.UseSqlServer("Data Source=LAPTOP-8LC85HGU\\SQLEXPRESS;Initial Catalog=SVCW;Persist Security Info=True;User ID=sa;Password=12");
+>>>>>>> origin/main
             }
         }
 
@@ -150,6 +156,42 @@ namespace SVCW.Models
                     .HasConstraintName("FK_Fanpage_User");
             });
 
+            modelBuilder.Entity<FollowFanpage>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.FanpageId });
+
+                entity.HasOne(d => d.Fanpage)
+                    .WithMany(p => p.FollowFanpage)
+                    .HasForeignKey(d => d.FanpageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FollowFanpage_Fanpage");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.FollowFanpage)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FollowFanpage_User");
+            });
+
+            modelBuilder.Entity<FollowJoinAvtivity>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.ActivityId });
+
+                entity.Property(e => e.IsFollow).IsFixedLength();
+
+                entity.HasOne(d => d.Activity)
+                    .WithMany(p => p.FollowJoinAvtivity)
+                    .HasForeignKey(d => d.ActivityId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FollowJoinAvtivity_Activity");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.FollowJoinAvtivity)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FollowJoinAvtivity_User");
+            });
+
             modelBuilder.Entity<Like>(entity =>
             {
                 entity.HasKey(e => new { e.UserId, e.ActivityId });
@@ -222,6 +264,10 @@ namespace SVCW.Models
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.HasIndex(e => e.Username, "User")
+                    .IsUnique()
+                    .HasFilter("([username] IS NOT NULL)");
+
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.User)
                     .HasForeignKey(d => d.RoleId)

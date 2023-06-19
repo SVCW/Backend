@@ -10,7 +10,6 @@ namespace SVCW.Models
 {
     [Index("Email", Name = "IX_User_email", IsUnique = true)]
     [Index("Phone", Name = "IX_User_phone", IsUnique = true)]
-    [Index("Username", Name = "IX_User_username", IsUnique = true)]
     public partial class User
     {
         public User()
@@ -19,6 +18,8 @@ namespace SVCW.Models
             Activity = new HashSet<Activity>();
             BankAccount = new HashSet<BankAccount>();
             Comment = new HashSet<Comment>();
+            FollowFanpage = new HashSet<FollowFanpage>();
+            FollowJoinAvtivity = new HashSet<FollowJoinAvtivity>();
             Like = new HashSet<Like>();
             Notification = new HashSet<Notification>();
             Report = new HashSet<Report>();
@@ -86,6 +87,10 @@ namespace SVCW.Models
         public virtual ICollection<BankAccount> BankAccount { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<Comment> Comment { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<FollowFanpage> FollowFanpage { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<FollowJoinAvtivity> FollowJoinAvtivity { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<Like> Like { get; set; }
         [InverseProperty("User")]

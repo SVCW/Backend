@@ -15,6 +15,7 @@ namespace SVCW.Models
             ActivityResult = new HashSet<ActivityResult>();
             Comment = new HashSet<Comment>();
             Donation = new HashSet<Donation>();
+            FollowJoinAvtivity = new HashSet<FollowJoinAvtivity>();
             Like = new HashSet<Like>();
             Media = new HashSet<Media>();
             Process = new HashSet<Process>();
@@ -71,6 +72,8 @@ namespace SVCW.Models
         public virtual ICollection<Comment> Comment { get; set; }
         [InverseProperty("Activity")]
         public virtual ICollection<Donation> Donation { get; set; }
+        [InverseProperty("Activity")]
+        public virtual ICollection<FollowJoinAvtivity> FollowJoinAvtivity { get; set; }
         [InverseProperty("Activity")]
         public virtual ICollection<Like> Like { get; set; }
         [InverseProperty("Activity")]

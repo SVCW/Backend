@@ -2,6 +2,8 @@
 using SVCW.DTOs.Activities;
 using SVCW.Interfaces;
 using SVCW.Models;
+using System.Collections.Immutable;
+using System.Linq;
 
 namespace SVCW.Services
 {
@@ -72,16 +74,17 @@ namespace SVCW.Services
             try
             {
                 var check = await this.context.Activity
-                    .Include(x=>x.Fanpage)
-                    .Include(x=>x.User)
-                    .Include(x=>x.Comment)
-                    .Include(x=>x.Like)
-                    .Include(x=>x.Process)
-                    .Include(x=>x.Donation)
-                    .Include(x=>x.ActivityResult)
-                    .Include(x=>x.FollowJoinAvtivity)
-                    .Include(x=>x.Media)
-                    .Include(x=>x.BankAccount)
+                    .Include(x => x.Comment)
+                        .ThenInclude(x=>x.User)
+                    .Include(x => x.Fanpage)
+                    .Include(x => x.User)
+                    .Include(x => x.Like)
+                    .Include(x => x.Process)
+                    .Include(x => x.Donation)
+                    .Include(x => x.ActivityResult)
+                    .Include(x => x.FollowJoinAvtivity)
+                    .Include(x => x.Media)
+                    .Include(x => x.BankAccount)
                     .ToListAsync();
                 if(check != null)
                 {
@@ -99,9 +102,10 @@ namespace SVCW.Services
             try
             {
                 var check = await this.context.Activity
+                    .Include(x => x.Comment)
+                        .ThenInclude(x => x.User)
                     .Include(x => x.Fanpage)
                     .Include(x => x.User)
-                    .Include(x => x.Comment)
                     .Include(x => x.Like)
                     .Include(x => x.Process)
                     .Include(x => x.Donation)
@@ -128,9 +132,10 @@ namespace SVCW.Services
             try
             {
                 var check = await this.context.Activity
+                    .Include(x => x.Comment)
+                        .ThenInclude(x => x.User)
                     .Include(x => x.Fanpage)
                     .Include(x => x.User)
-                    .Include(x => x.Comment)
                     .Include(x => x.Like)
                     .Include(x => x.Process)
                     .Include(x => x.Donation)
@@ -157,9 +162,10 @@ namespace SVCW.Services
             try
             {
                 var check = await this.context.Activity
+                    .Include(x => x.Comment)
+                        .ThenInclude(x => x.User)
                     .Include(x => x.Fanpage)
                     .Include(x => x.User)
-                    .Include(x => x.Comment)
                     .Include(x => x.Like)
                     .Include(x => x.Process)
                     .Include(x => x.Donation)

@@ -38,8 +38,20 @@ namespace SVCW.Services
                 }
 
                 await this.context.Activity.AddAsync(activity);
+                
                 if(await this.context.SaveChangesAsync() > 0)
                 {
+                    foreach (var media in dto.media)
+                    {
+                        var media2 = new Media();
+                        media2.MediaId = "MED" + Guid.NewGuid().ToString().Substring(0, 7);
+                        media2.Type = media.Type;
+                        media2.LinkMedia = media.LinkMedia;
+                        media2.ActivityId = activity.ActivityId;
+                        await this.context.Media.AddAsync(media2);
+                        await this.context.SaveChangesAsync();
+                        media2 = new Media();
+                    }
                     return activity;
                 }
                 return null;
@@ -119,7 +131,7 @@ namespace SVCW.Services
                         .ThenInclude(x=>x.User)
                     .Include(x => x.Fanpage)
                     .Include(x => x.User)
-                    .Include(x => x.Like)
+                    .Include(x => x.Like.Where(a=>a.Status))
                     .Include(x => x.Process)
                     .Include(x => x.Donation)
                     .Include(x => x.ActivityResult)
@@ -147,7 +159,7 @@ namespace SVCW.Services
                         .ThenInclude(x => x.User)
                     .Include(x => x.Fanpage)
                     .Include(x => x.User)
-                    .Include(x => x.Like)
+                    .Include(x => x.Like.Where(a => a.Status))
                     .Include(x => x.Process)
                     .Include(x => x.Donation)
                     .Include(x => x.ActivityResult)
@@ -177,7 +189,7 @@ namespace SVCW.Services
                         .ThenInclude(x => x.User)
                     .Include(x => x.Fanpage)
                     .Include(x => x.User)
-                    .Include(x => x.Like)
+                    .Include(x => x.Like.Where(a => a.Status))
                     .Include(x => x.Process)
                     .Include(x => x.Donation)
                     .Include(x => x.ActivityResult)
@@ -207,7 +219,7 @@ namespace SVCW.Services
                         .ThenInclude(x => x.User)
                     .Include(x => x.Fanpage)
                     .Include(x => x.User)
-                    .Include(x => x.Like)
+                    .Include(x => x.Like.Where(a => a.Status))
                     .Include(x => x.Process)
                     .Include(x => x.Donation)
                     .Include(x => x.ActivityResult)
@@ -280,9 +292,12 @@ namespace SVCW.Services
                 check.StartDate = dto.StartDate;
                 check.Location = dto.Location;
                 check.TargetDonation = dto.TargetDonation;
-
-                await this.context.SaveChangesAsync();
-                return check;
+                if(await this.context.SaveChangesAsync() >0)
+                {
+                    return check;
+                }
+                return null;
+               
             }catch (Exception ex) { throw new Exception(ex.Message); }
         }
     }

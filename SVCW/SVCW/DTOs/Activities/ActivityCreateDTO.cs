@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using SVCW.DTOs.Media;
 
 namespace SVCW.DTOs.Activities
 {
@@ -14,5 +15,6 @@ namespace SVCW.DTOs.Activities
         public decimal? TargetDonation { get; set; }
         public string UserId { get; set; }
         public bool isFanpageAvtivity { get; set; }
+        public List<MediaDTO> media { get; set; }
     }
 }

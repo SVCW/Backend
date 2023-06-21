@@ -10,5 +10,6 @@ namespace SVCW.Interfaces
         Task<bool> UpdateAchivement(AchivementDTO upAchivement);
         Task<bool> DeleteAchivement(List<string> achivementId);
         Task<bool> InsertAchivement(AchivementDTO achivement);
+        Task<bool> UserAchivement(string userID, string achivemnt);
     }
 }

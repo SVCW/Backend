@@ -86,6 +86,28 @@ namespace SVCW.Controllers
         }
 
         /// <summary>
+        /// admin, moderate
+        /// </summary>
+        /// <param name="achivementId"></param>
+        /// <returns></returns>
+        [Route("insert-achivement-user")]
+        [HttpPost]
+        public async Task<IActionResult> achivementUser(string userId, string achivementId)
+        {
+            ResponseAPI<List<AchivementDTO>> responseAPI = new ResponseAPI<List<AchivementDTO>>();
+            try
+            {
+                responseAPI.Data = await this._achivementService.UserAchivement(userId,achivementId);
+                return Ok(responseAPI);
+            }
+            catch (Exception ex)
+            {
+                responseAPI.Message = ex.Message;
+                return BadRequest(responseAPI);
+            }
+        }
+
+        /// <summary>
         /// admin, moderator
         /// </summary>
         /// <param name="upAchivement"></param>

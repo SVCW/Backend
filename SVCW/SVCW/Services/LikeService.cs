@@ -43,6 +43,7 @@ namespace SVCW.Services
                     _like.UserId = like.UserId;
                     _like.ActivityId = like.ActivityId;
                     _like.Datetime = DateTime.Now;
+                    _like.Status = true;
                     await this._context.Like.AddAsync(_like);
                     this._context.SaveChanges();
 
@@ -65,6 +66,7 @@ namespace SVCW.Services
                 _like.UserId = likeInfo.UserId;
                 _like.ActivityId = likeInfo.ActivityId;
                 _like.Datetime = DateTime.Now;
+                _like.Status = true;
                 await this._context.Like.AddAsync(_like);
                 this._context.SaveChanges();
                 return true;
@@ -79,11 +81,11 @@ namespace SVCW.Services
         {
             try
             {
-                var db = this._context.Like.Where(like => like.ActivityId.Equals(likeInfo.ActivityId) && like.UserId.Equals(likeInfo.UserId));
+                var db = await this._context.Like.Where(like => like.ActivityId.Equals(likeInfo.ActivityId) && like.UserId.Equals(likeInfo.UserId)).FirstOrDefaultAsync();
 
                 if (db != null)
                 {
-                    this._context.Like.RemoveRange(db);
+                    db.Status = false;
                     this._context.SaveChanges();
                 }
                 return true;

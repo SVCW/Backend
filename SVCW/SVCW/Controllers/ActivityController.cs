@@ -35,6 +35,73 @@ namespace SVCW.Controllers
             }
         }
 
+        [Route("join-Activity")]
+        [HttpPost]
+        public async Task<IActionResult> join(string activityId, string userId)
+        {
+            ResponseAPI<List<Activity>> responseAPI = new ResponseAPI<List<Activity>>();
+            try
+            {
+                responseAPI.Data = await this.service.joinActivity(activityId,userId);
+                return Ok(responseAPI);
+            }
+            catch (Exception ex)
+            {
+                responseAPI.Message = ex.Message;
+                return BadRequest(responseAPI);
+            }
+        }
+
+        [Route("follow-Activity")]
+        [HttpPost]
+        public async Task<IActionResult> follow(string activityId, string userId)
+        {
+            ResponseAPI<List<Activity>> responseAPI = new ResponseAPI<List<Activity>>();
+            try
+            {
+                responseAPI.Data = await this.service.followActivity(activityId,userId);
+                return Ok(responseAPI);
+            }
+            catch (Exception ex)
+            {
+                responseAPI.Message = ex.Message;
+                return BadRequest(responseAPI);
+            }
+        }
+
+        [Route("unfollow-activity")]
+        [HttpPut]
+        public async Task<IActionResult> unfollow(string activityId, string userId)
+        {
+            ResponseAPI<List<Activity>> responseAPI = new ResponseAPI<List<Activity>>();
+            try
+            {
+                responseAPI.Data = await this.service.unFollowActivity(activityId, userId);
+                return Ok(responseAPI);
+            }
+            catch (Exception ex)
+            {
+                responseAPI.Message = ex.Message;
+                return BadRequest(responseAPI);
+            }
+        }
+
+        [Route("disJoin-activity")]
+        [HttpPut]
+        public async Task<IActionResult> disjoin(string activityId, string userId)
+        {
+            ResponseAPI<List<Activity>> responseAPI = new ResponseAPI<List<Activity>>();
+            try
+            {
+                responseAPI.Data = await this.service.disJoinActivity(activityId, userId);
+                return Ok(responseAPI);
+            }
+            catch (Exception ex)
+            {
+                responseAPI.Message = ex.Message;
+                return BadRequest(responseAPI);
+            }
+        }
         [Route("update-activity")]
         [HttpPut]
         public async Task<IActionResult> update(ActivityUpdateDTO dto)

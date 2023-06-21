@@ -13,7 +13,7 @@ namespace SVCW.Models
         [Key]
         [Column("notifiactionId")]
         [StringLength(10)]
-        public string NotifiactionId { get; set; }
+        public string NotificationId { get; set; }
         [Required]
         [Column("title")]
         public string Title { get; set; }

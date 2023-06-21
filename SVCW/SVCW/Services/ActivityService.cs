@@ -69,6 +69,47 @@ namespace SVCW.Services
             }
         }
 
+        public async Task<bool> disJoinActivity(string activityId, string userId)
+        {
+            try
+            {
+                var check = await this.context.FollowJoinAvtivity.Where(x=>x.UserId.Equals(userId) && x.ActivityId.Equals(activityId)).FirstOrDefaultAsync();
+                if(check != null)
+                {
+                    check.IsJoin = false;
+                    var ac = await this.context.Activity.Where(x=>x.ActivityId.Equals(activityId)).FirstOrDefaultAsync();
+                    if (ac != null)
+                    {
+                        ac.NumberJoin -= 1;
+                        return true;
+                    }
+                }
+                return false;
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> followActivity(string activityId, string userId)
+        {
+            try
+            {
+                var follow = new FollowJoinAvtivity();
+                follow.UserId = userId;
+                follow.ActivityId = activityId;
+                follow.IsJoin = false;
+                follow.IsFollow= true;
+                follow.Datetime = DateTime.Now;
+
+                await this.context.FollowJoinAvtivity.AddAsync(follow);
+                return await this.context.SaveChangesAsync() > 0;
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<List<Activity>> getAll()
         {
             try
@@ -180,6 +221,46 @@ namespace SVCW.Services
                     return check;
                 }
                 return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> joinActivity(string activityId, string userId)
+        {
+            try
+            {
+                var follow = new FollowJoinAvtivity();
+                follow.UserId = userId;
+                follow.ActivityId = activityId;
+                follow.IsJoin = true;
+                follow.IsFollow = true;
+                follow.Datetime = DateTime.Now;
+
+                await this.context.FollowJoinAvtivity.AddAsync(follow);
+
+                var check = await this.context.Activity.Where(x=>x.ActivityId.Equals(activityId)).FirstOrDefaultAsync();
+                check.NumberJoin += 1;
+                return await this.context.SaveChangesAsync() > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> unFollowActivity(string activityId, string userId)
+        {
+            try
+            {
+                var check = await this.context.FollowJoinAvtivity.Where(x => x.UserId.Equals(userId) && x.ActivityId.Equals(activityId)).FirstOrDefaultAsync();
+                if (check != null)
+                {
+                    check.IsFollow = false;
+                }
+                return await this.context.SaveChangesAsync() >0;
             }
             catch (Exception ex)
             {

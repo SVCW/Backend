@@ -20,6 +20,8 @@ namespace SVCW.Models
         public string ActivityId { get; set; }
         [Column("datetime", TypeName = "datetime")]
         public DateTime Datetime { get; set; }
+        [Column("status")]
+        public bool Status { get; set; }
 
         [ForeignKey("ActivityId")]
         [InverseProperty("Like")]

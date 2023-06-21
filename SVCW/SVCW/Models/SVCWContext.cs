@@ -176,8 +176,6 @@ namespace SVCW.Models
             {
                 entity.HasKey(e => new { e.UserId, e.ActivityId });
 
-                entity.Property(e => e.IsFollow).IsFixedLength();
-
                 entity.HasOne(d => d.Activity)
                     .WithMany(p => p.FollowJoinAvtivity)
                     .HasForeignKey(d => d.ActivityId)

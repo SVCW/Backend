@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>D:\CapstoneProjectSVCW\Backend\SVCW\SVCW\SVCW.xml</DocumentationFile>
+    <DocumentationFile>SVCW.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

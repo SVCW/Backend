@@ -21,8 +21,7 @@ namespace SVCW.Models
         [Column("isJoin")]
         public bool? IsJoin { get; set; }
         [Column("isFollow")]
-        [StringLength(10)]
-        public string IsFollow { get; set; }
+        public bool? IsFollow { get; set; }
         [Column("datetime", TypeName = "datetime")]
         public DateTime Datetime { get; set; }
 

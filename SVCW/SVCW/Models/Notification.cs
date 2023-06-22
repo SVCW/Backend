@@ -11,7 +11,7 @@ namespace SVCW.Models
     public partial class Notification
     {
         [Key]
-        [Column("notifiactionId")]
+        [Column("notificationId")]
         [StringLength(10)]
         public string NotificationId { get; set; }
         [Required]

@@ -18,6 +18,7 @@ namespace SVCW.Controllers
             this.service = service;
         }
 
+
         [Route("Insert-fanpage")]
         [HttpPost]
         public async Task<IActionResult> Insert(FanpageCreateDTO dto)
@@ -52,6 +53,11 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("delete-fanpage")]
         [HttpDelete]
         public async Task<IActionResult> delete(string id)
@@ -69,6 +75,10 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <returns></returns>
         [Route("getall-fanpage")]
         [HttpGet]
         public async Task<IActionResult> getall()
@@ -86,6 +96,10 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <returns></returns>
         [Route("get-fanpage-moderate")]
         [HttpGet]
         public async Task<IActionResult> getModerate()
@@ -185,6 +199,11 @@ namespace SVCW.Controllers
             }
         }
 
+        /// <summary>
+        /// admin, moderator
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("moderate-fanpage")]
         [HttpPut]
         public async Task<IActionResult> moderate(string id)

@@ -131,5 +131,20 @@ namespace SVCW.Services
                 throw new ArgumentException("Process went wrong");
             }
         }
+
+        public async Task<bool> UserAchivement(string userID, string achivemnt)
+        {
+            try
+            {
+                var acus = new AchivementUser();
+                acus.AchivementId = achivemnt;
+                acus.UserId = userID;
+                acus.EndDate = DateTime.MaxValue;
+
+                await this.context.AchivementUser.AddAsync(acus);
+
+                return await this.context.SaveChangesAsync()>0;
+            }catch(Exception ex) { throw new Exception(ex.Message); }
+        }
     }
 }

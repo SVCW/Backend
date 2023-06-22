@@ -89,7 +89,9 @@ namespace SVCW.Services
         {
             try
             {
-                var db = await this._context.Comment.ToListAsync();
+                var db = await this._context.Comment
+                    .Include(x=>x.User)
+                    .ToListAsync();
                 return db;
             }
             catch (Exception ex)

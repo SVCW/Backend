@@ -15,6 +15,6 @@ namespace SVCW.DTOs.Activities
         public decimal? TargetDonation { get; set; }
         public string UserId { get; set; }
         public bool isFanpageAvtivity { get; set; }
-        public List<MediaDTO> media { get; set; }
+        public List<MediaDTO>? media { get; set; }
     }
 }

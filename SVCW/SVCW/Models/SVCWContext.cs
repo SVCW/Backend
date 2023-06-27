@@ -234,13 +234,16 @@ namespace SVCW.Models
                 entity.HasOne(d => d.Activity)
                     .WithMany(p => p.Process)
                     .HasForeignKey(d => d.ActivityId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Process_Activity");
+
+                entity.HasOne(d => d.ActivityResult)
+                    .WithMany(p => p.Process)
+                    .HasForeignKey(d => d.ActivityResultId)
+                    .HasConstraintName("FK_Process_ActivityResult");
 
                 entity.HasOne(d => d.ProcessType)
                     .WithMany(p => p.Process)
                     .HasForeignKey(d => d.ProcessTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Process_ProcessType");
             });
 

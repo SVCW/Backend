@@ -32,18 +32,22 @@ namespace SVCW.Models
         public DateTime? EndDate { get; set; }
         [Column("status")]
         public bool Status { get; set; }
-        [Required]
         [Column("activityId")]
         [StringLength(10)]
         public string ActivityId { get; set; }
-        [Required]
         [Column("processTypeId")]
         [StringLength(10)]
         public string ProcessTypeId { get; set; }
+        [Column("activityResultId")]
+        [StringLength(10)]
+        public string ActivityResultId { get; set; }
 
         [ForeignKey("ActivityId")]
         [InverseProperty("Process")]
         public virtual Activity Activity { get; set; }
+        [ForeignKey("ActivityResultId")]
+        [InverseProperty("Process")]
+        public virtual ActivityResult ActivityResult { get; set; }
         [ForeignKey("ProcessTypeId")]
         [InverseProperty("Process")]
         public virtual ProcessType ProcessType { get; set; }

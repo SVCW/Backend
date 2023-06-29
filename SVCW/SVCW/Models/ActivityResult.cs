@@ -10,6 +10,11 @@ namespace SVCW.Models
 {
     public partial class ActivityResult
     {
+        public ActivityResult()
+        {
+            Process = new HashSet<Process>();
+        }
+
         [Key]
         [Column("resultId")]
         [StringLength(10)]
@@ -30,5 +35,7 @@ namespace SVCW.Models
         [ForeignKey("ActivityId")]
         [InverseProperty("ActivityResult")]
         public virtual Activity Activity { get; set; }
+        [InverseProperty("ActivityResult")]
+        public virtual ICollection<Process> Process { get; set; }
     }
 }

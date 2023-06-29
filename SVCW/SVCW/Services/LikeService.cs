@@ -69,7 +69,13 @@ namespace SVCW.Services
                 _like.Status = true;
                 await this._context.Like.AddAsync(_like);
                 this._context.SaveChanges();
-                return true;
+
+                var check = await this._context.Activity.Where(x=>x.ActivityId.Equals(likeInfo.ActivityId)).FirstOrDefaultAsync();
+                if (check != null)
+                {
+                    check.NumberLike += 1;
+                }
+                return await this._context.SaveChangesAsync() > 0;
             }
             catch
             {
@@ -88,7 +94,12 @@ namespace SVCW.Services
                     db.Status = false;
                     this._context.SaveChanges();
                 }
-                return true;
+                var check = await this._context.Activity.Where(x => x.ActivityId.Equals(likeInfo.ActivityId)).FirstOrDefaultAsync();
+                if (check != null)
+                {
+                    check.NumberLike -= 1;
+                }
+                return await this._context.SaveChangesAsync() > 0;
             }
             catch (Exception ex)
             {

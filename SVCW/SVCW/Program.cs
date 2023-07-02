@@ -30,7 +30,7 @@ builder.Services.AddScoped<IComment, CommentService>();
 builder.Services.AddScoped<ILike, LikeService>();
 builder.Services.AddScoped<INotification, NotificationService>();
 builder.Services.AddScoped<IReport, ReportService>();
-builder.Services.AddScoped<IConfig, ConfigService>();
+builder.Services.AddScoped<IUser, UserService>();
 
 
 

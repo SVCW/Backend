@@ -139,4 +139,3 @@ D:\CapstoneProjectSVCW\Backend\SVCW\SVCW\obj\Debug\net6.0\SVCW.pdb
 D:\CapstoneProjectSVCW\Backend\SVCW\SVCW\obj\Debug\net6.0\SVCW.genruntimeconfig.cache
 D:\CapstoneProjectSVCW\Backend\SVCW\SVCW\obj\Debug\net6.0\ref\SVCW.dll
 D:\CapstoneProjectSVCW\Backend\SVCW\SVCW\bin\Debug\net6.0\SVCW.xml
-D:\CapstoneProjectSVCW\Backend\SVCW\SVCW\bin\Debug\net6.0\AdminConfig.json

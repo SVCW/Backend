@@ -11,9 +11,11 @@ namespace SVCW.DTOs.ProcessTypes
         public string ProcessTypeId { get; set; }
         [Required]
         [Column("processTypeName")]
+        [RegularExpression("@\"\\b(|địt|đụ|lồn|cặc|chém|loz|Đm|Duma|Nứng|Ngáo...)\\b")]
         public string ProcessTypeName { get; set; }
         [Required]
         [Column("description")]
+        [RegularExpression("@\"\\b(|địt|đụ|lồn|cặc|chém|loz|Đm|Duma|Nứng|Ngáo...)\\b")]
         public string Description { get; set; }
     }
 }

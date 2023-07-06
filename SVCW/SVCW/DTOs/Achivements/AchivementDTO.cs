@@ -2,6 +2,12 @@
 using SVCW.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+<<<<<<< Updated upstream
+=======
+
+using SVCW.Services;
+using SVCW.Interfaces;
+>>>>>>> Stashed changes
 
 namespace SVCW.DTOs.Achivements
 {

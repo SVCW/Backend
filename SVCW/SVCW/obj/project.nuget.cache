@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< Updated upstream
   "dgSpecHash": "zthUVZfy87aXwCjz9QtLG9jaRJ9Vxh8w1XeScHLIfwNdOHvkWyP0VIZ13a1d3XH2Rm5YDtXo6FHc2PWZ8w8Hug==",
   "success": true,
   "projectFilePath": "F:\\CP_Summer23_SVCW\\SVCW_BE\\Backend_SVCW\\SVCW\\SVCW\\SVCW.csproj",
+=======
+  "dgSpecHash": "95RIDXudjTIdqbAjTGKJsh4qViJcnscVXAjEOvB6imaBf7aX/dmftDmkQs9pMHRe3E6RDTSlFWKi5GhkLF+mpQ==",
+  "success": true,
+  "projectFilePath": "F:\\CP_Summer23_SVCW\\BE\\Backend_SVCW\\SVCW\\SVCW\\SVCW.csproj",
+>>>>>>> Stashed changes
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\6.0.0\\microsoft.aspnetcore.jsonpatch.6.0.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\6.0.0\\microsoft.aspnetcore.mvc.newtonsoftjson.6.0.0.nupkg.sha512",

@@ -6,6 +6,6 @@ namespace SVCW.Interfaces
     {
         adminConfig GetAdminConfig();
         adminConfig updateAdminConfig(adminConfig update);
-        userCreateActivityConfig getConfig(string userId);
+        userCreateActivityConfig getConfig(string? userId, string? email);
     }
 }

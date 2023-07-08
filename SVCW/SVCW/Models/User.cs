@@ -18,6 +18,7 @@ namespace SVCW.Models
             Activity = new HashSet<Activity>();
             BankAccount = new HashSet<BankAccount>();
             Comment = new HashSet<Comment>();
+            Donation = new HashSet<Donation>();
             FollowFanpage = new HashSet<FollowFanpage>();
             FollowJoinAvtivity = new HashSet<FollowJoinAvtivity>();
             Like = new HashSet<Like>();
@@ -87,6 +88,8 @@ namespace SVCW.Models
         public virtual ICollection<BankAccount> BankAccount { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<Comment> Comment { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<Donation> Donation { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<FollowFanpage> FollowFanpage { get; set; }
         [InverseProperty("User")]

@@ -2,7 +2,7 @@
 using SVCW.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using SVCW.DTOs.Config;
+
 using SVCW.Services;
 using SVCW.Interfaces;
 

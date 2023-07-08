@@ -40,9 +40,19 @@ namespace SVCW.Models
         [Column("activityId")]
         [StringLength(10)]
         public string ActivityId { get; set; }
+        [Column("taxVNPay")]
+        public string TaxVnpay { get; set; }
+        [Column("userId")]
+        [StringLength(10)]
+        public string UserId { get; set; }
+        [Column("payDate", TypeName = "datetime")]
+        public DateTime? PayDate { get; set; }
 
         [ForeignKey("ActivityId")]
         [InverseProperty("Donation")]
         public virtual Activity Activity { get; set; }
+        [ForeignKey("UserId")]
+        [InverseProperty("Donation")]
+        public virtual User User { get; set; }
     }
 }

@@ -215,5 +215,29 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:SVCW.Controllers.VNPayController.#ctor(Microsoft.Extensions.Configuration.IConfiguration,SVCW.Models.SVCWContext)">
+            <summary>
+            
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:SVCW.Controllers.VNPayController.Get(System.String)">
+            <summary>
+            [Guest] Endpoint for company create url payment with condition
+            </summary>
+            <returns>List of user</returns>
+            <response code="200">Returns the list of user</response>
+            <response code="204">Returns if list of user is empty</response>
+            <response code="403">Return if token is access denied</response>
+        </member>
+        <member name="M:SVCW.Controllers.VNPayController.Confirm">
+            <summary>
+            [Guest] Endpoint for company confirm payment with condition
+            </summary>
+            <returns>List of user</returns>
+            <response code="200">Returns the list of user</response>
+            <response code="204">Returns if list of user is empty</response>
+            <response code="403">Return if token is access denied</response>
+        </member>
     </members>
 </doc>

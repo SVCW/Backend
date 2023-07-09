@@ -5,8 +5,8 @@ using SVCW.Models;
 
 namespace SVCW.Services
 {
-	public class UserService : IUser
-	{
+    public class UserService : IUser
+    {
         private readonly SVCWContext _context;
 
         public UserService(SVCWContext context)
@@ -147,4 +147,3 @@ namespace SVCW.Services
         }
     }
 }
-

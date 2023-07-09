@@ -3,6 +3,9 @@ using SVCW.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
+using SVCW.Services;
+using SVCW.Interfaces;
+
 namespace SVCW.DTOs.Achivements
 {
     public class AchivementDTO

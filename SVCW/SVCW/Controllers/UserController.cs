@@ -10,7 +10,7 @@ namespace SVCW.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
-	{
+    {
         private IUser service;
         public UserController(IUser service)
         {
@@ -49,7 +49,7 @@ namespace SVCW.Controllers
 
                 if (rstCode.Equals("FirstT Login"))
                 {
-                    var newUser = (CreateUserDTO) loginUser;
+                    var newUser = (CreateUserDTO)loginUser;
 
                     // Create user for the first time
                     Console.WriteLine("Do create new User...");
@@ -114,4 +114,3 @@ namespace SVCW.Controllers
         }
     }
 }
-

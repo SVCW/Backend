@@ -1,7 +1,7 @@
 ﻿namespace SVCW.DTOs.Users
 {
-	public class LoginUserDTO : UserResponse
-	{
+    public class LoginUserDTO : UserResponse
+    {
         public string? UserId { get; set; }
         public string Email { get; set; }
         public string? Username { get; set; }
@@ -16,4 +16,3 @@
         public string? RoleId { get; set; }
     }
 }
-

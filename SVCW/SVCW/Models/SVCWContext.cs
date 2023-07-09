@@ -144,6 +144,11 @@ namespace SVCW.Models
                     .HasForeignKey(d => d.ActivityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Donation_Activity");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Donation)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_Donation_User");
             });
 
             modelBuilder.Entity<Fanpage>(entity =>

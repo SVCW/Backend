@@ -1,4 +1,5 @@
-﻿using SVCW.DTOs.Users;
+﻿using SVCW.DTOs.Users.Req;
+using SVCW.DTOs.Users.Res;
 using SVCW.Models;
 
 namespace SVCW.Interfaces
@@ -6,8 +7,8 @@ namespace SVCW.Interfaces
     public interface IUser
     {
         Task<List<User>> getAllUser();
-        Task<CreateUserDTO> createUser(CreateUserDTO newUser);
-        Task<LoginUserDTO> validateLoginUser(LoginUserDTO loginUser);
-        Task<UpdateUserDTO> updateUser(UpdateUserDTO updateUser);
+        Task<CommonUserRes> createUser(CreateUserReq req);
+        Task<CommonUserRes> validateLoginUser(LoginReq req);
+        Task<CommonUserRes> updateUser(UpdateUserReq req);
     }
 }

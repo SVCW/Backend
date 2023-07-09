@@ -45,7 +45,6 @@ namespace SVCW.Models
         [Required]
         [Column("fullName")]
         public string FullName { get; set; }
-        [Required]
         [Column("phone")]
         [StringLength(15)]
         public string Phone { get; set; }

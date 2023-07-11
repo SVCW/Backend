@@ -1,4 +1,5 @@
-﻿using SVCW.Models;
+﻿using SVCW.DTOs.Donations;
+using SVCW.Models;
 
 namespace SVCW.Interfaces
 {
@@ -6,5 +7,6 @@ namespace SVCW.Interfaces
     {
         Task<List<Donation>> GetDonation();
         Task<List<Donation>> GetDonationsActivity(string id);
+        Task<Donation> CreateDonation(DonationDTO dto);
     }
 }

@@ -6,11 +6,11 @@ namespace SVCW.DTOs.Fanpage
 {
     public class FanpageCreateDTO
     {
-        [RegularExpression("@\"\\b(|địt|đụ|lồn|cặc|chém|loz|Đm|Duma|Nứng|Ngáo...)\\b")]
+        [RegularExpression(@"^(?!.*(fuck|badword1|badword2|địt|đụ|lồn|cặc|chém|loz|Đm|Duma|Nứng|Ngáo)).*$")]
         public string FanpageName { get; set; }
         public string Avatar { get; set; }
         public string CoverImage { get; set; }
-        [RegularExpression("@\"\\b(|địt|đụ|lồn|cặc|chém|loz|Đm|Duma|Nứng|Ngáo...)\\b")]
+        [RegularExpression(@"^(?!.*(fuck|badword1|badword2|địt|đụ|lồn|cặc|chém|loz|Đm|Duma|Nứng|Ngáo)).*$")]
         public string Description { get; set; }
         public string Mst { get; set; }
         [EmailAddress]

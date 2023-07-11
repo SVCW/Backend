@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SVCW.DTOs;
+using SVCW.DTOs.Donations;
 using SVCW.Interfaces;
 using SVCW.Models;
 
@@ -50,6 +51,23 @@ namespace SVCW.Controllers
             try
             {
                 responseAPI.Data = await this.service.GetDonationsActivity(id);
+                return Ok(responseAPI);
+            }
+            catch (Exception ex)
+            {
+                responseAPI.Message = ex.Message;
+                return BadRequest(responseAPI);
+            }
+        }
+
+        [Route("create-Donation-activity")]
+        [HttpPost]
+        public async Task<IActionResult> createDonationActivity(DonationDTO dto)
+        {
+            ResponseAPI<List<Donation>> responseAPI = new ResponseAPI<List<Donation>>();
+            try
+            {
+                responseAPI.Data = await this.service.CreateDonation(dto);
                 return Ok(responseAPI);
             }
             catch (Exception ex)

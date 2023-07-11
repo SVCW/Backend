@@ -28,7 +28,7 @@ namespace SVCW.Services
             return adminConfig;
         }
 
-        public  userCreateActivityConfig getConfig(string userId)
+        public  userCreateActivityConfig getConfig(string? userId, string? email)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace SVCW.Services
                 userCreateActivityConfig config = new userCreateActivityConfig();
                 var check = this.context.User
                     .Include(p=>p.Fanpage)
-                    .Where(x => x.UserId.Equals(userId)).FirstOrDefault();
+                    .Where(x => x.UserId.Equals(userId) | x.Email.Equals(email)).FirstOrDefault();
                 
                 if(check.Fanpage == null)
                 {

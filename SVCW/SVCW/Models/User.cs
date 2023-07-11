@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 namespace SVCW.Models
 {
     [Index("Email", Name = "IX_User_email", IsUnique = true)]
-    [Index("Phone", Name = "IX_User_phone", IsUnique = true)]
     public partial class User
     {
         public User()
@@ -18,6 +17,7 @@ namespace SVCW.Models
             Activity = new HashSet<Activity>();
             BankAccount = new HashSet<BankAccount>();
             Comment = new HashSet<Comment>();
+            Donation = new HashSet<Donation>();
             FollowFanpage = new HashSet<FollowFanpage>();
             FollowJoinAvtivity = new HashSet<FollowJoinAvtivity>();
             Like = new HashSet<Like>();
@@ -41,20 +41,17 @@ namespace SVCW.Models
         [Column("password")]
         [StringLength(100)]
         public string Password { get; set; }
-        [Required]
         [Column("fullName")]
         public string FullName { get; set; }
-        [Required]
         [Column("phone")]
         [StringLength(15)]
         public string Phone { get; set; }
         [Column("gender")]
-        public bool Gender { get; set; }
-        [Required]
+        public bool? Gender { get; set; }
         [Column("image")]
         public string Image { get; set; }
         [Column("dateOfBirth", TypeName = "date")]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         [Column("createAt", TypeName = "datetime")]
         public DateTime CreateAt { get; set; }
         [Column("numberLike")]
@@ -87,6 +84,8 @@ namespace SVCW.Models
         public virtual ICollection<BankAccount> BankAccount { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<Comment> Comment { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<Donation> Donation { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<FollowFanpage> FollowFanpage { get; set; }
         [InverseProperty("User")]

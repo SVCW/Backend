@@ -7,5 +7,7 @@
         public bool isValidCreate { get; set; }
         public string? message { get; set; }
         public float maxDonate { get; set; }
+        public int target { get; set; }
+        public int activityJoin { get; set; }
     }
 }

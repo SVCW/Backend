@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SVCW.DTOs;
-using SVCW.DTOs.Comments;
-using SVCW.DTOs.Users;
+using SVCW.DTOs.Common;
+using SVCW.DTOs.Users.Req;
+using SVCW.DTOs.Users.Res;
 using SVCW.Interfaces;
 using SVCW.Models;
 
@@ -33,43 +34,49 @@ namespace SVCW.Controllers
                 return BadRequest(responseAPI);
             }
         }
-
+        /// <summary>
+        /// Required{email} -- nếu là new user -> userdata
+        /// </summary>
+        /// <param name="LoginReq"></param>
+        /// <returns></returns>
         [Route("validate-login-user")]
         [HttpPost]
-        public async Task<IActionResult> validateLoginUser(LoginUserDTO loginUser)
+        public async Task<IActionResult> validateLoginUser(LoginReq req)
         {
-            ResponseAPI<LoginUserDTO> responseAPI = new ResponseAPI<LoginUserDTO>();
+            ResponseAPI<CommonUserRes> responseAPI = new ResponseAPI<CommonUserRes>();
             try
             {
-                var dataResponse = new LoginUserDTO();
+                var res = new CommonUserRes();
 
-                var loginResultData = await this.service.validateLoginUser(loginUser);
-                var rstCode = loginResultData.resultCode;
-                Console.WriteLine(rstCode + " - " + loginResultData.resultMsg);
+                var validateRes = await this.service.validateLoginUser(req);
+                //var rstCode = res.resultCode;
+                Console.WriteLine(validateRes.resultCode + " - " + validateRes.resultMsg);
 
-                if (rstCode.Equals("FirstT Login"))
+                //First time login
+                if (validateRes.resultCode == SVCWCode.FirstTLogin)
                 {
-                    var newUser = (CreateUserDTO)loginUser;
+                    var createUserReq = new CreateUserReq();
+                    createUserReq.Email = req.Email;
 
-                    // Create user for the first time
+                    // Create new user
                     Console.WriteLine("Do create new User...");
-                    var createUserResult = await this.service.createUser(newUser);
+                    var createUserRes = await this.service.createUser(createUserReq);
 
-                    if (!createUserResult.resultCode.Equals("SUCCESS"))
+                    if (createUserRes.resultCode != SVCWCode.SUCCESS)
                     {
-                        dataResponse.resultCode = "New User Failed";
-                        dataResponse.resultMsg = "Valid User login Info. But create new user Fail";
-                        responseAPI.Data = dataResponse;
+                        res.resultCode = SVCWCode.LoginSuccesAndFail;
+                        res.resultMsg = "Thông tin login hợp lệ. Nhưng có lỗi khi tạo mới tài khoản!";
+                        responseAPI.Data = res;
                         return Ok(responseAPI);
                     }
-                    dataResponse.resultCode = "SUCCESS";
-                    dataResponse.resultMsg = "Valid Login Info. New user was created!";
-                    responseAPI.Data = dataResponse;
+                    res.resultCode = SVCWCode.SUCCESS;
+                    res.resultMsg = "Đăng nhập thành công! Chào mừng thành viên mới!";
+                    res.user = createUserRes.user;
+                    responseAPI.Data = res;
                     return Ok(responseAPI);
                 }
-
-                dataResponse = loginResultData;
-                responseAPI.Data = dataResponse;
+                res = validateRes;
+                responseAPI.Data = res;
                 return Ok(responseAPI);
             }
             catch (Exception ex)
@@ -77,16 +84,20 @@ namespace SVCW.Controllers
                 responseAPI.Message = ex.Message;
                 return BadRequest(responseAPI);
             }
-        }
-
+            }
+        /// <summary>
+        /// Required{email}
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         [Route("create-user")]
         [HttpPost]
-        public async Task<IActionResult> createUser(CreateUserDTO newUser)
+        public async Task<IActionResult> createUser(CreateUserReq req)
         {
-            ResponseAPI<CreateUserDTO> responseAPI = new ResponseAPI<CreateUserDTO>();
+            ResponseAPI<CommonUserRes> responseAPI = new ResponseAPI<CommonUserRes>();
             try
             {
-                responseAPI.Data = await this.service.createUser(newUser);
+                responseAPI.Data = await this.service.createUser(req);
                 return Ok(responseAPI);
             }
             catch (Exception ex)
@@ -95,15 +106,19 @@ namespace SVCW.Controllers
                 return BadRequest(responseAPI);
             }
         }
-
+        /// <summary>
+        /// Required{userId, >= 1 thông tin update}
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         [Route("update-user")]
         [HttpPut]
-        public async Task<IActionResult> updateUser(UpdateUserDTO updateUser)
+        public async Task<IActionResult> updateUser(UpdateUserReq req)
         {
-            ResponseAPI<User> responseAPI = new ResponseAPI<User>();
+            ResponseAPI<CommonUserRes> responseAPI = new ResponseAPI<CommonUserRes>();
             try
             {
-                responseAPI.Data = await this.service.updateUser(updateUser);
+                responseAPI.Data = await this.service.updateUser(req);
                 return Ok(responseAPI);
             }
             catch (Exception ex)

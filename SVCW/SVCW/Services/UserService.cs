@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SVCW.DTOs.Users;
+
+using Microsoft.EntityFrameworkCore;
+using SVCW.DTOs.Common;
+using SVCW.DTOs.Users.Req;
+using SVCW.DTOs.Users.Res;
 using SVCW.Interfaces;
 using SVCW.Models;
 
@@ -14,122 +17,173 @@ namespace SVCW.Services
             _context = context;
         }
 
-        public async Task<CreateUserDTO> createUser(CreateUserDTO newUser)
+        public async Task<CommonUserRes> createUser(CreateUserReq req)
         {
             try
             {
+                var res = new CommonUserRes();
+                var email = req.Email.ToLower();
+                //validate create user data
+                if (!isValidCreateData(req,res)) return res;
+
+                // check if email existed
+                var check = await this._context.User.Where(x => x.Email.Equals(email)).FirstOrDefaultAsync();
+                if (check != null)
+                {
+                    res.resultCode = SVCWCode.EmailExisted;
+                    res.resultMsg = "Email đã được đăng ký!";
+                    return res;
+                }
+
                 var user = new User();
 
                 user.UserId = "USR" + Guid.NewGuid().ToString().Substring(0, 7);
                 //maping
-                user.Email = newUser.Email;
-                user.FullName = newUser.FullName ?? "none";
-                user.Username = newUser.Email;
-                user.Password = newUser.Password ?? "PWD" + Guid.NewGuid().ToString().Substring(0, 7);
-                user.Phone = newUser.Phone ?? "none";
-                user.Gender = newUser.Gender ?? true;
-                user.DateOfBirth = newUser.DateOfBirth;
-                user.Image = newUser.Image ?? "none";
-                user.CreateAt = newUser.CreateAt ?? DateTime.Now;
+                user.Email = req.Email;
+                user.FullName = req.FullName ?? "none";
+                user.Username = req.Email.Split("@")[1];
+                user.Password = req.Password ?? "PWD" + Guid.NewGuid().ToString().Substring(0, 7);
+                user.Phone = req.Phone;
+                user.Gender = req.Gender ?? true;
+                user.DateOfBirth = req.DateOfBirth ?? DateTime.MinValue;
+                user.Image = req.Image ?? "none";
+                user.CreateAt = req.CreateAt ?? DateTime.Now;
 
                 // build data return
-                newUser.FullName = user.FullName;
-                newUser.Phone = user.Phone;
-                newUser.Gender = user.Gender;
-                newUser.Image = user.Image;
-                newUser.CreateAt = user.CreateAt;
+                res.user = user;
 
-                user.Status = newUser.Status ?? user.Status;
-                user.RoleId = newUser.RoleId ?? "role1";
+                //res.user.FullName = user.FullName;
+                //res.user.Phone = user.Phone;
+                //res.user.Gender = user.Gender;
+                //res.user.Image = user.Image;
+                //res.user.CreateAt = user.CreateAt;
+
+                //!response data
+                user.Status = req.Status ?? "Active";
+                user.RoleId = req.RoleId ?? "role1";/////////////
 
                 await this._context.User.AddAsync(user);
                 await this._context.SaveChangesAsync();
-                return newUser;
+
+                res.resultCode = SVCWCode.SUCCESS;
+                res.resultMsg = "Tạo tài khoản thành công!";
+                return res;
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
-
             }
         }
 
-        public async Task<LoginUserDTO> validateLoginUser(LoginUserDTO loginUser)
+        private bool isValidCreateData(CreateUserReq req, CommonUserRes res)
+        {
+            var usrEmail = req.Email;
+            if (!isValidEmail(usrEmail))
+            {
+                res.resultCode = SVCWCode.InvalidInput;
+                res.resultMsg = "Email không hợp lệ! Email sai format hoặc tổ chức chưa được tích hợp!";
+                return false;
+            }
+            return true;
+        }
+
+        public async Task<CommonUserRes> validateLoginUser(LoginReq req)
         {
             try
             {
-                var loginResultData = new LoginUserDTO();
+                var res = new CommonUserRes();
 
-                var usrEmail = loginUser.Email;
-                if (!isValidEmail(usrEmail))
-                {
-                    loginResultData.resultCode = "Invalid Email";
-                    loginResultData.resultMsg = "Invalid Email! Email domain must in intergrated list";
-                    return loginResultData;
-                }
+                // validate jobs -- build res data
+                if (!isValidLogin(req, res)) return res;
 
-                var user = await this._context.User.Where(x => x.Email.Equals(usrEmail)).FirstOrDefaultAsync();
+                // get user data
+                var user = await this._context.User.Where(x => x.Email.Equals(req.Email)).FirstOrDefaultAsync();
 
                 if (user == null)
                 {
-                    loginResultData.resultCode = "FirstT Login";
-                    loginResultData.resultMsg = "Do createUser for first time";
-                    return loginResultData;
+                    res.resultCode = SVCWCode.FirstTLogin;
+                    res.resultMsg = "User lần đầu đăng nhập hệ thống!";
+                    return res;
                 }
 
-                loginResultData.UserId = user.UserId;
-                loginResultData.Email = user.Email;
-                loginResultData.Username = user.Username;
-                loginResultData.FullName = user.FullName;
-                loginResultData.Phone = user.Phone;
-                loginResultData.Gender = user.Gender;
-                loginResultData.Image = user.Image;
-                loginResultData.DateOfBirth = user.DateOfBirth;
-                loginResultData.CreateAt = user.CreateAt;
-                loginResultData.Status = user.Status;
-                loginResultData.RoleId = user.RoleId;
+                // build data response - sau này cũng nên tách hàm
+                res.user = user;
 
-                loginResultData.resultCode = "SUCCESS";
-                loginResultData.resultMsg = "Login SUCCESS";
-
-                return loginResultData;
-            }
+                res.resultCode = SVCWCode.SUCCESS;
+                res.resultMsg = "Đăng nhập thành công!";
+                return res;
+            } 
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
 
-        private bool isValidEmail(string usrEmail)
+        private bool isValidLogin(LoginReq req, CommonUserRes res)
         {
-            // Hiện tại đang set cứng, sau này phải check trong list domain của các trường mình đã intergrate
-            return usrEmail.Split('@')[1].Equals("fpt.edu.vn");
+            var usrEmail = req.Email;
+            if (!isValidEmail(usrEmail))
+            {
+                res.resultCode = SVCWCode.InvalidEmail;
+                res.resultMsg = "Email không hợp lệ! Email sai format hoặc tổ chức chưa được tích hợp!";
+                return false;
+            }
+            return true;
         }
 
-        public async Task<UpdateUserDTO> updateUser(UpdateUserDTO updateUser)
+        private bool isValidEmail(string usrEmail) 
+        {
+            // Hiện tại đang set cứng, sau này phải check trong list domain của các trường mình đã intergrate
+            try
+            {
+            return usrEmail.Split('@')[1].Equals("fpt.edu.vn");
+            }
+            catch {
+                return false;
+            }
+        }
+
+        public async Task<CommonUserRes> updateUser(UpdateUserReq req)
         {
             try
             {
-                var user = await this._context.User.Where(x => x.UserId.Equals(updateUser.UserId)).FirstOrDefaultAsync();
+                var res = new CommonUserRes();
 
-                if (user != null)
+                var user = await this._context.User.Where(x => x.UserId.Equals(req.UserId)).FirstOrDefaultAsync();
+
+                if (user == null)
                 {
-                    user.Username = updateUser.Username ?? user.Username;
-                    user.Password = updateUser.Password ?? user.Password;
-                    user.FullName = updateUser.FullName ?? user.FullName;
-                    user.Phone = updateUser.Phone ?? user.Phone;
-                    user.Status = updateUser.Status ?? user.Status;
-                    user.Gender = updateUser.Gender ?? user.Gender;
-                    user.Image = updateUser.Image ?? user.Image;
-                    user.DateOfBirth = updateUser.DateOfBirth ?? user.DateOfBirth;
-                    user.Status = updateUser.Status ?? user.Status;
-                    user.RoleId = updateUser.RoleId ?? user.RoleId;
-                    await this._context.SaveChangesAsync();
+                    res.resultCode = SVCWCode.UserNotExist;
+                    res.resultMsg = "Không tìm thấy User Id: " + req.UserId + "!";
+                    return res;
                 }
-                return updateUser;
+                user.Username = req.Username ?? user.Username;
+                user.Password = req.Password ?? user.Password;
+                user.FullName = req.FullName ?? user.FullName;
+                user.Phone = req.Phone ?? user.Phone;
+                user.Status = req.Status ?? user.Status;
+                user.Gender = req.Gender ?? user.Gender;
+                user.Image = req.Image ?? user.Image;
+                user.DateOfBirth = req.DateOfBirth ?? user.DateOfBirth;
+                user.Status = req.Status ?? user.Status;
+                user.RoleId = req.RoleId ?? user.RoleId;
+
+                await this._context.SaveChangesAsync();
+
+                //build data return
+                res.user = user;
+
+                res.resultCode = SVCWCode.SUCCESS;
+                res.resultMsg = "Thông tin người đùng đã được cập nhật!";
+                return res;
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                Console.WriteLine("Ex:" + ex.Message);
+                var res = new CommonUserRes();
+                res.resultCode = SVCWCode.Unknown;
+                res.resultMsg = "Lỗi hệ thống!";
+                return res;
             }
         }
 

@@ -43,7 +43,7 @@ namespace SVCW.Services
                 //maping
                 user.Email = req.Email;
                 user.FullName = req.FullName ?? "none";
-                user.Username = req.Email.Split("@")[1];
+                user.Username = req.Email.Split("@")[0];
                 user.Password = req.Password ?? "PWD" + Guid.NewGuid().ToString().Substring(0, 7);
                 user.Phone = req.Phone;
                 user.Gender = req.Gender ?? true;
@@ -138,7 +138,7 @@ namespace SVCW.Services
             // Hiện tại đang set cứng, sau này phải check trong list domain của các trường mình đã intergrate
             try
             {
-            return usrEmail.Split('@')[1].Equals("fpt.edu.vn");
+            return usrEmail.Split('@')[0].Equals("fpt.edu.vn");
             }
             catch {
                 return false;

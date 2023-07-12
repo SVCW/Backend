@@ -28,7 +28,7 @@ namespace SVCW.Services
             return adminConfig;
         }
 
-        public  userCreateActivityConfig getConfig(string? userId, string? email)
+        public  userCreateActivityConfig getConfig(configDTO dto)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace SVCW.Services
                 userCreateActivityConfig config = new userCreateActivityConfig();
                 var check = this.context.User
                     .Include(p=>p.Fanpage)
-                    .Where(x => x.UserId.Equals(userId) | x.Email.Equals(email)).FirstOrDefault();
+                    .Where(x => x.UserId.Equals(dto.userId) | x.Email.Equals(dto.mail)).FirstOrDefault();
                 
                 if(check.Fanpage == null)
                 {
@@ -48,6 +48,8 @@ namespace SVCW.Services
                         config.isValidCreate = false;
                         config.isDonatable = false;
                         config.maxDonate= 0;
+                        config.activityJoin = (int)check.NumberActivityJoin;
+                        config.target = adConfig.NumberActivityJoinSuccess1;
                         config.message = "Muốn tạo chiến dịch phải tham gia đủ "+ adConfig.NumberActivityJoinSuccess1 +" chiến dịch"+
                             "\n số chiến dịch bạn đã tham gia thành công: "+check.NumberActivityJoin;
                     }
@@ -58,6 +60,8 @@ namespace SVCW.Services
                             config.isValidCreate = true;
                             config.isDonatable = true;
                             config.maxDonate = adConfig.maxTargetDonate1;
+                            config.activityJoin = (int)check.NumberActivityJoin;
+                            config.target = adConfig.NumberActivityJoinSuccess1;
                             config.message = "bạn đã tham gia " +check.NumberActivityJoin +" chiến dịch " +
                                 "\n và chiến dịch có quyên góp tối đa bạn có thể tạo là: " + adConfig.maxTargetDonate1;
                         }
@@ -66,6 +70,8 @@ namespace SVCW.Services
                             config.isValidCreate = true;
                             config.isDonatable = true;
                             config.maxDonate = adConfig.maxTargetDonate2;
+                            config.activityJoin = (int)check.NumberActivityJoin;
+                            config.target = adConfig.NumberActivityJoinSuccess2;
                             config.message = "bạn đã tham gia " + check.NumberActivityJoin + " chiến dịch " +
                                 "\n và chiến dịch có quyên góp tối đa bạn có thể tạo là: " + adConfig.maxTargetDonate2;
                         }
@@ -74,6 +80,8 @@ namespace SVCW.Services
                             config.isValidCreate = true;
                             config.isDonatable = true;
                             config.maxDonate = adConfig.maxTargetDonate3;
+                            config.activityJoin = (int)check.NumberActivityJoin;
+                            config.target = adConfig.NumberActivityJoinSuccess3;
                             config.message = "bạn đã tham gia " + check.NumberActivityJoin + " chiến dịch " +
                                 "\n và chiến dịch có quyên góp tối đa bạn có thể tạo là: " + adConfig.maxTargetDonate3;
                         }
@@ -85,6 +93,8 @@ namespace SVCW.Services
                     config.isDonatable = true;
                     config.isFanpage = true;
                     config.maxDonate = adConfig.maxTargetDonate3;
+                    config.activityJoin = (int)check.NumberActivityJoin;
+                    config.target = adConfig.NumberActivityJoinSuccess3;
                     config.message = "chiến dịch có quyên góp tối đa bạn có thể tạo là: " + adConfig.maxTargetDonate3;
                 }
                 

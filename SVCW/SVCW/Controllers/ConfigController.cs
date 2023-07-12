@@ -37,13 +37,13 @@ namespace SVCW.Controllers
 
         [Route("get-userCreateActivityConfig")]
         [HttpGet]
-        public async Task<IActionResult> getUserConfig(string? userId, string? email)
+        public async Task<IActionResult> getUserConfig(configDTO dto)
         {
 
             ResponseAPI<userCreateActivityConfig> responseAPI = new ResponseAPI<userCreateActivityConfig>();
             try
             {
-                responseAPI.Data = this.Service.getConfig(userId, email);
+                responseAPI.Data = this.Service.getConfig(dto);
                 return Ok(responseAPI);
             }
             catch (Exception ex)

@@ -36,7 +36,7 @@ namespace SVCW.Controllers
         }
 
         [Route("get-userCreateActivityConfig")]
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> getUserConfig(configDTO dto)
         {
 

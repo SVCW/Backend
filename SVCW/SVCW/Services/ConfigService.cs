@@ -38,7 +38,7 @@ namespace SVCW.Services
                 userCreateActivityConfig config = new userCreateActivityConfig();
                 var check = this.context.User
                     .Include(p=>p.Fanpage)
-                    .Where(x => x.UserId.Equals(dto.userId) | x.Email.Equals(dto.mail)).FirstOrDefault();
+                    .Where(x => x.UserId.Equals(dto.userId) | x.Email.Equals(dto.email)).FirstOrDefault();
                 
                 if(check.Fanpage == null)
                 {

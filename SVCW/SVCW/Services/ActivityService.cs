@@ -122,23 +122,45 @@ namespace SVCW.Services
             }
         }
 
-        public async Task<List<Activity>> getAll()
+        public async Task<List<Activity>> getAll(int pageSize, int PageLoad)
         {
             try
             {
-                var check = await this.context.Activity
+                var check = new List<Activity>();
+                if(PageLoad <= 0)
+                {
+                     check = (List<Activity>)this.context.Activity
                     .Include(x => x.Comment)
-                        .ThenInclude(x=>x.User)
+                        .ThenInclude(x => x.User)
                     .Include(x => x.Fanpage)
                     .Include(x => x.User)
-                    .Include(x => x.Like.Where(a=>a.Status))
+                    .Include(x => x.Like.Where(a => a.Status))
                     .Include(x => x.Process)
-                    .Include(x => x.Donation)
+                    //.Include(x => x.Donation)
                     .Include(x => x.ActivityResult)
                     .Include(x => x.FollowJoinAvtivity)
                     .Include(x => x.Media)
-                    .Include(x => x.BankAccount)
-                    .ToListAsync();
+                    //.Include(x => x.BankAccount)
+                    .OrderBy(x => x.CreateAt)
+                    .Take(pageSize);
+                }
+                if(PageLoad > 0)
+                {
+                    check = (List<Activity>)this.context.Activity
+                    .Include(x => x.Comment)
+                        .ThenInclude(x => x.User)
+                    .Include(x => x.Fanpage)
+                    .Include(x => x.User)
+                    .Include(x => x.Like.Where(a => a.Status))
+                    .Include(x => x.Process)
+                    //.Include(x => x.Donation)
+                    .Include(x => x.ActivityResult)
+                    .Include(x => x.FollowJoinAvtivity)
+                    .Include(x => x.Media)
+                    //.Include(x => x.BankAccount)
+                    .OrderBy(x => x.CreateAt)
+                    .Take(PageLoad*pageSize - pageSize);
+                }
                 if(check != null)
                 {
                     return check;

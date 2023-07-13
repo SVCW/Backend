@@ -147,12 +147,12 @@ namespace SVCW.Controllers
         /// <returns></returns>
         [Route("get-activity")]
         [HttpGet]
-        public async Task<IActionResult> getall()
+        public async Task<IActionResult> getall(int pageSize, int PageLoad)
         {
             ResponseAPI<List<Activity>> responseAPI = new ResponseAPI<List<Activity>>();
             try
             {
-                responseAPI.Data = await this.service.getAll();
+                responseAPI.Data = await this.service.getAll(pageSize, PageLoad);
                 return Ok(responseAPI);
             }
             catch (Exception ex)

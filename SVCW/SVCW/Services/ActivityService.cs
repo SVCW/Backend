@@ -122,14 +122,14 @@ namespace SVCW.Services
             }
         }
 
-        public async Task<List<Activity>> getAll(int pageSize, int PageLoad)
+        public List<Activity> getAll(int pageSize, int PageLoad)
         {
             try
             {
-                var check = new List<Activity>();
-                if(PageLoad <= 0)
+                var result = new List<Activity>();
+                if(PageLoad == 1)
                 {
-                     check = (List<Activity>)this.context.Activity
+                     var check = this.context.Activity
                     .Include(x => x.Comment)
                         .ThenInclude(x => x.User)
                     .Include(x => x.Fanpage)
@@ -141,12 +141,16 @@ namespace SVCW.Services
                     .Include(x => x.FollowJoinAvtivity)
                     .Include(x => x.Media)
                     //.Include(x => x.BankAccount)
-                    .OrderBy(x => x.CreateAt)
+                    .OrderByDescending(x => x.CreateAt)
                     .Take(pageSize);
+                    foreach(var x in check)
+                    {
+                        result.Add(x);
+                    }
                 }
-                if(PageLoad > 0)
+                if(PageLoad >1)
                 {
-                    check = (List<Activity>)this.context.Activity
+                    var check = this.context.Activity
                     .Include(x => x.Comment)
                         .ThenInclude(x => x.User)
                     .Include(x => x.Fanpage)
@@ -158,12 +162,16 @@ namespace SVCW.Services
                     .Include(x => x.FollowJoinAvtivity)
                     .Include(x => x.Media)
                     //.Include(x => x.BankAccount)
-                    .OrderBy(x => x.CreateAt)
+                    .OrderByDescending(x => x.CreateAt)
                     .Take(PageLoad*pageSize - pageSize);
+                    foreach (var x in check)
+                    {
+                        result.Add(x);
+                    }
                 }
-                if(check != null)
+                if(result != null)
                 {
-                    return check;
+                    return result;
                 }
                 return null;
             }catch(Exception ex)

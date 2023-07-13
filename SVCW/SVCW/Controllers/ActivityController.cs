@@ -152,7 +152,7 @@ namespace SVCW.Controllers
             ResponseAPI<List<Activity>> responseAPI = new ResponseAPI<List<Activity>>();
             try
             {
-                responseAPI.Data = await this.service.getAll(pageSize, PageLoad);
+                responseAPI.Data = this.service.getAll(pageSize, PageLoad);
                 return Ok(responseAPI);
             }
             catch (Exception ex)

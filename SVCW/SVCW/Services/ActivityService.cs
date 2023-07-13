@@ -122,26 +122,56 @@ namespace SVCW.Services
             }
         }
 
-        public async Task<List<Activity>> getAll()
+        public List<Activity> getAll(int pageSize, int PageLoad)
         {
             try
             {
-                var check = await this.context.Activity
+                var result = new List<Activity>();
+                if(PageLoad == 1)
+                {
+                     var check = this.context.Activity
                     .Include(x => x.Comment)
-                        .ThenInclude(x=>x.User)
+                        .ThenInclude(x => x.User)
                     .Include(x => x.Fanpage)
                     .Include(x => x.User)
-                    .Include(x => x.Like.Where(a=>a.Status))
+                    .Include(x => x.Like.Where(a => a.Status))
                     .Include(x => x.Process)
-                    .Include(x => x.Donation)
+                    //.Include(x => x.Donation)
                     .Include(x => x.ActivityResult)
                     .Include(x => x.FollowJoinAvtivity)
                     .Include(x => x.Media)
-                    .Include(x => x.BankAccount)
-                    .ToListAsync();
-                if(check != null)
+                    //.Include(x => x.BankAccount)
+                    .OrderByDescending(x => x.CreateAt)
+                    .Take(pageSize);
+                    foreach(var x in check)
+                    {
+                        result.Add(x);
+                    }
+                }
+                if(PageLoad >1)
                 {
-                    return check;
+                    var check = this.context.Activity
+                    .Include(x => x.Comment)
+                        .ThenInclude(x => x.User)
+                    .Include(x => x.Fanpage)
+                    .Include(x => x.User)
+                    .Include(x => x.Like.Where(a => a.Status))
+                    .Include(x => x.Process)
+                    //.Include(x => x.Donation)
+                    .Include(x => x.ActivityResult)
+                    .Include(x => x.FollowJoinAvtivity)
+                    .Include(x => x.Media)
+                    //.Include(x => x.BankAccount)
+                    .OrderByDescending(x => x.CreateAt)
+                    .Take(PageLoad*pageSize - pageSize);
+                    foreach (var x in check)
+                    {
+                        result.Add(x);
+                    }
+                }
+                if(result != null)
+                {
+                    return result;
                 }
                 return null;
             }catch(Exception ex)

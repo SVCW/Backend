@@ -8,7 +8,7 @@ namespace SVCW.Interfaces
         Task<Activity> createActivity(ActivityCreateDTO dto);
         Task<Activity> updateActivity(ActivityUpdateDTO dto);
         Task<Activity> getById(string id);
-        Task<List<Activity>> getAll();
+        List<Activity> getAll(int pageSize, int PageLoad);
         Task<List<Activity>> getByTitle(string title);
         Task<List<Activity>> getForUser();
         Task<Activity> delete(string id);

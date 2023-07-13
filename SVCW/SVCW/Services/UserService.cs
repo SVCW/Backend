@@ -50,6 +50,10 @@ namespace SVCW.Services
                 user.DateOfBirth = req.DateOfBirth ?? DateTime.MinValue;
                 user.Image = req.Image ?? "none";
                 user.CreateAt = req.CreateAt ?? DateTime.Now;
+                user.NumberLike = 0;
+                user.NumberDislike = 0;
+                user.NumberActivityJoin = 0;
+                user.NumberActivitySuccess = 0;
 
                 // build data return
                 res.user = user;

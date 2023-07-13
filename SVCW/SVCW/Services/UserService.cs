@@ -50,6 +50,10 @@ namespace SVCW.Services
                 user.DateOfBirth = req.DateOfBirth ?? DateTime.MinValue;
                 user.Image = req.Image ?? "none";
                 user.CreateAt = req.CreateAt ?? DateTime.Now;
+                user.NumberLike = 0;
+                user.NumberDislike = 0;
+                user.NumberActivityJoin = 0;
+                user.NumberActivitySuccess = 0;
 
                 // build data return
                 res.user = user;
@@ -138,7 +142,7 @@ namespace SVCW.Services
             // Hiện tại đang set cứng, sau này phải check trong list domain của các trường mình đã intergrate
             try
             {
-            return usrEmail.Split('@')[0].Equals("fpt.edu.vn");
+            return usrEmail.Split('@')[1].Equals("fpt.edu.vn");
             }
             catch {
                 return false;
